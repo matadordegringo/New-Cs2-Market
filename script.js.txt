@@ -1,0 +1,35 @@
+let cart = [];
+const cartBtn = document.getElementById("cart-btn");
+const cartModal = document.getElementById("cart-modal");
+const closeCart = document.getElementById("close-cart");
+const cartItems = document.getElementById("cart-items");
+const cartTotal = document.getElementById("cart-total");
+const cartCount = document.getElementById("cart-count");
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  updateCart();
+  alert(`${name} adicionada ao carrinho!`);
+}
+
+function updateCart() {
+  cartItems.innerHTML = "";
+  let total = 0;
+  cart.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name} - R$ ${item.price}`;
+    cartItems.appendChild(li);
+    total += item.price;
+  });
+  cartTotal.textContent = total.toFixed(2);
+  cartCount.textContent = cart.length;
+}
+
+cartBtn.onclick = () => (cartModal.style.display = "block");
+closeCart.onclick = () => (cartModal.style.display = "none");
+
+window.onclick = (event) => {
+  if (event.target == cartModal) {
+    cartModal.style.display = "none";
+  }
+};
